@@ -1,0 +1,50 @@
+name: 'ArgoCD Manifest Update'
+author: Julian Pufler <julian@pufler.dev>
+description: 'This GitHub Action updates a deployment manifest with the latest image hash for your application.'
+inputs:
+  deployment-repo:
+    description: 'The deployment repository holding the manifests'
+    required: true
+  github-token:
+    description: 'Github Token needed to access deployment repository'
+    required: true
+  deployment-repo-ref:
+    description: 'The deployment repository ref to be used'
+    default: 'main'
+    required: false
+  manifest-file: 
+    description: 'Path of the manifest file in your deployment repository'
+    required: true
+  image-name:
+    description: 'The docker image name'
+    required: true
+  image-tag:
+    description: 'The new tag value'
+    required: true
+  git-email:
+    description: 'The email to be used for the git commit'
+    default: 'pujux@argocd-manifest-update.com'
+    required: false
+  git-name:
+    description: 'The username to be used for the git commit'
+    default: 'pujux'
+    required: false
+runs:
+  using: 'composite'
+  steps:
+    - uses: actions/checkout@v3
+      with:
+        repository: ${{ inputs.deployment-repo }}
+        ref: ${{ inputs.deployment-repo-ref }}
+        token: ${{ inputs.github-token }}
+    - name: Git Config
+      shell: bash
+      run: |
+        git config --global user.email "${{ inputs.git-email }}"
+        git config --global user.name "${{ inputs.git-name }}"
+    - name: Update manifest
+      shell: bash
+      run: |
+        sed -i "s#/${{ inputs.image-name }}:*#/${{ inputs.image-name }}:${{ inputs.image-tag }}#g" ${{ inputs.manifest-file }}
+        git commit -am "Update manifest '${{ inputs.manifest-file }}' with tag '${{ inputs.image-tag }}' for image '${{ inputs.image-name }}'"
+    - run: git push origin ${{ inputs.deployment-repo-ref }}
