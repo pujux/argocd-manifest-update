@@ -47,4 +47,4 @@ runs:
       run: |
         sed -i "s#/${{ inputs.image-name }}:*#/${{ inputs.image-name }}:${{ inputs.image-tag }}#g" ${{ inputs.manifest-file }}
         git commit -am "Update manifest '${{ inputs.manifest-file }}' with tag '${{ inputs.image-tag }}' for image '${{ inputs.image-name }}'"
-    - run: git push origin ${{ inputs.deployment-repo-ref }}
+        git push origin ${{ inputs.deployment-repo-ref }}
