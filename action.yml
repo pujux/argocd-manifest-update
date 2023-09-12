@@ -6,7 +6,9 @@ inputs:
     description: 'The deployment repository holding the manifests'
     required: true
   github-token:
-    description: 'Github Token needed to access deployment repository'
+    description: >
+      Github Token needed to access deployment repository
+      Needs read and write access to deployment repository
     required: true
   deployment-repo-ref:
     description: 'The deployment repository ref to be used'
