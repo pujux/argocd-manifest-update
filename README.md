@@ -6,11 +6,11 @@ This GitHub Action helps automate the process of updating a deployment manifest 
 ### `deployment-repo` (Required)
 The deployment repository holding the deployment manifests.
 
-### `github-token` (Required)
-The GitHub Token required to access the deployment repository. Needs read and write access to deployment repository.
-
 ### `deployment-repo-ref` (Optional)
 The deployment repository ref to be used (default: 'main').
+
+### `github-token` (Required)
+The GitHub Token required to access the deployment repository. Needs read and write access to deployment repository.
 
 ### `manifest-file` (Required)
 The path of the manifest file in your deployment repository.
@@ -32,11 +32,11 @@ To use the ArgoCD Manifest Update GitHub Action in your workflow, you can add th
 
 ```yaml
 - name: ArgoCD Manifest Update
-  uses: <repository>/<action-name>@<tag>
+  uses: pujux/argocd-manifest-update@v1
   with:
     deployment-repo: <your-deployment-repo>
-    github-token: ${{ secrets.DEPLOYMENT_REPO_TOKEN }}
     deployment-repo-ref: <your-deployment-repo-ref>  # Optional (default: 'main')
+    github-token: ${{ secrets.DEPLOYMENT_REPO_TOKEN }}
     manifest-file: <path-to-manifest-file>
     image-name: <your-image-name>
     image-tag: <new-image-tag>

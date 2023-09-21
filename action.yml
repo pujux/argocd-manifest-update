@@ -5,28 +5,35 @@ inputs:
   deployment-repo:
     description: 'The deployment repository holding the manifests'
     required: true
+
+  deployment-repo-ref:
+    description: 'The deployment repository ref to be used'
+    default: 'main'
+    required: false
+
   github-token:
     description: >
       Github Token needed to access deployment repository
       Needs read and write access to deployment repository
     required: true
-  deployment-repo-ref:
-    description: 'The deployment repository ref to be used'
-    default: 'main'
-    required: false
+
   manifest-file: 
     description: 'Path of the manifest file in your deployment repository'
     required: true
+  
   image-name:
     description: 'The docker image name'
     required: true
+  
   image-tag:
     description: 'The new tag value'
     required: true
+  
   git-email:
     description: 'The email to be used for the git commit'
     default: 'pujux@argocd-manifest-update.com'
     required: false
+  
   git-name:
     description: 'The username to be used for the git commit'
     default: 'pujux'

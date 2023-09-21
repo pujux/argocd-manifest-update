@@ -7,11 +7,12 @@ jobs:
     steps:
       - id: random-number
         run: echo "RANDOM_NUMBER=$RANDOM" >> "$GITHUB_OUTPUT"
-      - uses: pujux/argocd-manifest-update@v0.1
+
+      - uses: pujux/argocd-manifest-update@v1
         with:
           deployment-repo: "pujux/argocd-manifest-update-deployment-test"
-          github-token: ${{ secrets.TEST_GITHUB_TOKEN }}
           deployment-repo-ref: "master"
+          github-token: ${{ secrets.TEST_GITHUB_TOKEN }}
           manifest-file: "apps/test.yml"
           image-name: "pujux-test"
           image-tag: ${{ steps.random-number.outputs.RANDOM_NUMBER }}
